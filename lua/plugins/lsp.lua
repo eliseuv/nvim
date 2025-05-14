@@ -3,7 +3,7 @@ return {
   {
     "williamboman/mason.nvim",
     -- Pin version
-    version = "1.11.0",
+    version = "^1.0.0",
     -- enabled = false,
     opts = {
       -- Prefer local binaries over mason binaries
@@ -13,6 +13,6 @@ return {
   {
     "mason-org/mason-lspconfig.nvim",
     -- Pin version
-    version = "1.32.0",
+    version = "^1.0.0",
   },
 }

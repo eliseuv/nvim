@@ -21,14 +21,14 @@ vim.g.lazyvim_python_ruff = "ruff"
 
 -- GUI config
 if vim.g.neovide then
-    vim.opt.guifont = "Iosevka Nerd Font:h9"
-    --     -- vim.g.neovide_remember_window_size = false
-    --     -- vim.g.neovide_fullscreen = true
-    vim.g.neovide_theme = "auto"
-    -- Transparency
-    vim.g.neovide_transparency = 0.95
-    -- Particle effects
-    vim.g.neovide_cursor_vfx_mode = "pixiedust"
-    vim.g.neovide_cursor_vfx_particle_lifetime = 5.0
-    vim.g.neovide_cursor_vfx_particle_density = 35.0
+  vim.opt.guifont = "Iosevka Nerd Font:h9"
+  --     -- vim.g.neovide_remember_window_size = false
+  --     -- vim.g.neovide_fullscreen = true
+  vim.g.neovide_theme = "auto"
+  -- Transparency
+  vim.g.neovide_transparency = 0.95
+  -- Particle effects
+  vim.g.neovide_cursor_vfx_mode = "pixiedust"
+  vim.g.neovide_cursor_vfx_particle_lifetime = 5.0
+  vim.g.neovide_cursor_vfx_particle_density = 35.0
 end

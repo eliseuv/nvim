@@ -1,11 +1,11 @@
 return {
 
-    -- Justfile
-    {
-        "NoahTheDuke/vim-just",
-        ft = { "just" },
-    },
+  -- Justfile
+  {
+    "NoahTheDuke/vim-just",
+    ft = { "just" },
+  },
 
-    -- Justfile grammar
-    { "IndianBoy42/tree-sitter-just" },
+  -- Justfile grammar
+  { "IndianBoy42/tree-sitter-just" },
 }

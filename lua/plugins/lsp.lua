@@ -2,6 +2,8 @@ return {
 
   {
     "williamboman/mason.nvim",
+    -- Disable mason
+    enabled = false,
     -- Pin version
     version = "^1.0.0",
     -- enabled = false,

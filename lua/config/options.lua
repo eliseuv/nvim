@@ -11,6 +11,9 @@ vim.opt.tabstop = 4 -- Number of spaces tabs count for
 vim.opt.shiftwidth = 4 -- Size of an indent
 vim.opt.wrap = true
 
+-- Preview on split
+vim.opt.inccommand = "split"
+
 -- Spelling
 vim.opt.spell = true
 vim.opt.spelllang = { "en_us" }

@@ -9,6 +9,7 @@ return {
         "MeanderingProgrammer/render-markdown.nvim",
         ft = { "markdown", "codecompanion" },
       },
+      "ravitemer/codecompanion-history.nvim",
     },
     cmd = { "CodeCompanion", "CodeCompanionChat", "CodeCompanionActions", "CodeCompanionCmd" },
     opts = {
@@ -63,6 +64,11 @@ return {
       },
       display = { diff = { provider = "mini_diff" } },
       opts = { log_level = "DEBUG" },
+      extensions = {
+        history = {
+          enabled = true,
+        },
+      },
     },
     keys = {
       {

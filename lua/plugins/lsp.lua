@@ -1,7 +1,7 @@
 return {
 
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     -- Disable mason
     enabled = false,
     opts = {

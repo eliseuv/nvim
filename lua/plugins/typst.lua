@@ -9,9 +9,9 @@ return {
     end,
   },
 
-  -- tinymist
+  -- LSP
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     opts = {
       ensure_installed = {
         "tinymist",
@@ -22,7 +22,7 @@ return {
     "neovim/nvim-lspconfig",
     dependencies = {
       "mason.nvim",
-      "williamboman/mason-lspconfig.nvim",
+      "mason-org/mason-lspconfig.nvim",
     },
     ---@class PluginLspOpts
     opts = {
@@ -48,37 +48,14 @@ return {
   -- Typst preview
   {
     "chomosuke/typst-preview.nvim",
-    lazy = false,
+    lazy = false, -- or ft = 'typst'
     version = "1.*",
-    ft = "typst",
-    follow_cursor = true,
-    invert_colors = "always",
-    open_cmd = "firefox %s -P typst-preview --class typst-preview",
-    build = function()
-      require("typst-preview").update()
-    end,
   },
 
-  -- -- Typst LSP
-  -- {
-  --     "neovim/nvim-lspconfig",
-  --     ---@class PluginLspOpts
-  --     opts = {
-  --         ---@type lspconfig.options
-  --         servers = {
-  --             typst_lsp = {
-  --                 settings = {
-  --                     exportPdf = "onType",
-  --                 },
-  --             },
-  --         },
-  --     },
-  -- },
-
-  -- -- Typst vim
-  -- {
-  --     "kaarmu/typst.vim",
-  --     ft = "typst",
-  --     lazy = false,
-  -- },
+  -- Typst vim
+  {
+    "kaarmu/typst.vim",
+    ft = "typst",
+    lazy = false,
+  },
 }

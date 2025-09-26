@@ -9,4 +9,6 @@ return {
       PATH = "append",
     },
   },
+
+  { "mason-org/mason-lspconfig.nvim", enabled = false },
 }

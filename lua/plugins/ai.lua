@@ -4,6 +4,10 @@ return {
     "folke/sidekick.nvim",
     opts = {
       cli = {
+        prompts = {
+          -- Propose implementation
+          implement = "Popose an implementation for {this}. Use the containing comments as instructions on the desired behavior. Also take into cosideration the overall project style and idiom.",
+        },
         mux = {
           backend = "tmux",
           enabled = true,

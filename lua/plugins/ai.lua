@@ -14,15 +14,21 @@ return {
           backend = "tmux",
           enabled = true,
         },
+        tools = {
+          agy = {
+            cmd = { "agy" },
+            is_proc = "\\<agy\\>",
+          },
+        },
       },
     },
     keys = {
       {
         "<leader>ag",
         function()
-          require("sidekick.cli").toggle({ name = "gemini", focus = true })
+          require("sidekick.cli").toggle({ name = "agy", focus = true })
         end,
-        desc = "Sidekick Toggle Gemini",
+        desc = "Sidekick Toggle AGY",
       },
     },
   },

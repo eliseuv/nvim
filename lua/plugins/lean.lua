@@ -15,6 +15,9 @@ return {
     opts = {
       lsp = {},
       mappings = true,
+      infoview = {
+        orientation = "vertical",
+      },
     },
   },
 }

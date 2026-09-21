@@ -49,6 +49,13 @@
             # Lua Rocks
             lua51Packages.luarocks
 
+            # Markdown
+            marksman
+            markdownlint-cli2
+            markdown-toc
+            prettier
+            deno
+
           ];
 
           shellHook = ''

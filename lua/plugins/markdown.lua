@@ -28,10 +28,25 @@ return {
 
   -- Re-enable checkbox icons: disabled by LazyVim's markdown extra by
   -- default, but wanted here to pair with autolist.nvim's checkbox toggling.
+  -- LaTeX rendering is off because `$…$` is typst here (see
+  -- queries/markdown_inline/injections.scm), rendered by snacks.image instead.
   {
     "MeanderingProgrammer/render-markdown.nvim",
     opts = {
       checkbox = {
+        enabled = true,
+      },
+      latex = {
+        enabled = false,
+      },
+    },
+  },
+
+  -- Inline images and typst math rendering (kitty graphics protocol).
+  {
+    "folke/snacks.nvim",
+    opts = {
+      image = {
         enabled = true,
       },
     },

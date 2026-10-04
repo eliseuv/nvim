@@ -35,6 +35,32 @@ return {
     end,
   },
 
+  -- LSP inside embedded typst math: mirrors injected `$…$` (and ```typst
+  -- fences) into a hidden .typ buffer with tinymist attached, and proxies its
+  -- completion/hover/diagnostics back to the markdown buffer.
+  {
+    "jmbuhr/otter.nvim",
+    ft = "markdown",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    opts = {},
+    config = function(_, opts)
+      local otter = require("otter")
+      otter.setup(opts)
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "markdown",
+        group = vim.api.nvim_create_augroup("otter_typst_math", { clear = true }),
+        callback = function()
+          otter.activate({ "typst" })
+        end,
+      })
+      -- The autocmd above is registered after the first markdown buffer's
+      -- FileType fired (that event is what loaded this plugin).
+      if vim.bo.filetype == "markdown" then
+        otter.activate({ "typst" })
+      end
+    end,
+  },
+
   -- Re-enable checkbox icons: disabled by LazyVim's markdown extra by
   -- default, but wanted here to pair with autolist.nvim's checkbox toggling.
   -- LaTeX rendering is off because `$…$` is typst here (see

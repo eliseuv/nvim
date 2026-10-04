@@ -25,10 +25,10 @@ return {
       ---@type lspconfig.options
       servers = {
         tinymist = {
-          --- todo: these configuration from lspconfig maybe broken
-          single_file_support = true,
-          root_dir = function()
-            return vim.fn.getcwd()
+          -- vim.lsp.config signature: the root must be passed to `on_dir`;
+          -- returning it (old lspconfig style) leaves the server unstarted.
+          root_dir = function(_, on_dir)
+            on_dir(vim.fn.getcwd())
           end,
           --- See [Tinymist Server Configuration](https://github.com/Myriad-Dreamin/tinymist/blob/main/Configuration.md) for references.
           settings = {

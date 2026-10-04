@@ -26,6 +26,15 @@ return {
     opts = {},
   },
 
+  -- Format with `deno fmt` instead of prettier: prettier only treats `$x$`
+  -- (no inner spaces) as math, so it escapes `_` in typst display math `$ x_1 $`.
+  {
+    "stevearc/conform.nvim",
+    opts = function(_, opts)
+      opts.formatters_by_ft.markdown = { "deno_fmt", "markdownlint-cli2", "markdown-toc" }
+    end,
+  },
+
   -- Re-enable checkbox icons: disabled by LazyVim's markdown extra by
   -- default, but wanted here to pair with autolist.nvim's checkbox toggling.
   -- LaTeX rendering is off because `$…$` is typst here (see

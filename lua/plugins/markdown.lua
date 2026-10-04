@@ -1,3 +1,48 @@
+-- otter mirrors each injected chunk at column 0 of its row, and a later chunk on
+-- the same row overwrites the earlier one. That suits fenced blocks but breaks
+-- inline `$…$` math: LSP positions land on the wrong column and only the last
+-- equation of a line survives. This pads mid-line typst chunks to their real
+-- column and joins chunks sharing a row, so the hidden buffer is column-exact
+-- and no offset translation is needed.
+-- NOTE: overrides an otter internal (keeper.extract_code_chunks); re-check this
+-- if otter changes how it builds the hidden buffer.
+local function patch_otter_inline_chunks()
+  local keeper = require("otter.keeper")
+  local extract = keeper.extract_code_chunks
+  keeper.extract_code_chunks = function(...)
+    local all_chunks = extract(...)
+    local chunks = all_chunks.typst
+    if not chunks then
+      return all_chunks
+    end
+    local joined = {}
+    for _, chunk in ipairs(chunks) do
+      local start_row, start_col = chunk.range.from[1], chunk.range.from[2]
+      local previous = joined[#joined]
+      if chunk.leading_offset ~= 0 or #chunk.text == 0 then
+        table.insert(joined, chunk)
+      elseif
+        previous
+        and previous.leading_offset == 0
+        and previous.range.to[1] == start_row
+        and #previous.text > 0
+      then
+        local last_line = previous.text[#previous.text]
+        previous.text[#previous.text] = last_line
+          .. string.rep(" ", math.max(start_col - #last_line, 0))
+          .. chunk.text[1]
+        vim.list_extend(previous.text, chunk.text, 2)
+        previous.range.to = chunk.range.to
+      else
+        chunk.text[1] = string.rep(" ", start_col) .. chunk.text[1]
+        table.insert(joined, chunk)
+      end
+    end
+    all_chunks.typst = joined
+    return all_chunks
+  end
+end
+
 return {
   -- Disable in favor of peek.nvim (browser-based preview, needs yarn/node;
   -- peek.nvim uses deno and renders in-window instead).
@@ -46,6 +91,7 @@ return {
     config = function(_, opts)
       local otter = require("otter")
       otter.setup(opts)
+      patch_otter_inline_chunks()
       vim.api.nvim_create_autocmd("FileType", {
         pattern = "markdown",
         group = vim.api.nvim_create_augroup("otter_typst_math", { clear = true }),

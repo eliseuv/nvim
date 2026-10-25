@@ -4,7 +4,7 @@ return {
         keys = {
             {
                 "<localleader>e",
-                "<cmd>Hls EvalAll<cr>",
+                "<cmd>Hls evalAll<cr>",
                 ft = "haskell",
                 desc = "Evaluate All",
             }

@@ -1,13 +1,11 @@
 return {
-
-  -- LSP
+  -- Replaces the nil_ls server enabled by lazyvim.plugins.extras.lang.nix
   {
     "neovim/nvim-lspconfig",
-    ---@class PluginLspOpts
     opts = {
-      ---@type lspconfig.options
       servers = {
         nixd = {},
+        nil_ls = { enabled = false },
       },
     },
   },

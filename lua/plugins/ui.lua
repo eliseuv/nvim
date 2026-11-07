@@ -14,12 +14,12 @@ return {
     opts = {
       style = "night",
       -- transparent = true,
+      dim_inactive = true,
       styles = {
         sidebars = "transparent",
         floats = "transparent",
       },
     },
-    dim_inactive = true,
   },
   {
     "LazyVim/LazyVim",

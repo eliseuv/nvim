@@ -6,6 +6,9 @@ return {
     ft = { "just" },
   },
 
-  -- Justfile grammar
-  { "IndianBoy42/tree-sitter-just" },
+  -- Justfile grammar, shipped by nvim-treesitter
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = { ensure_installed = { "just" } },
+  },
 }

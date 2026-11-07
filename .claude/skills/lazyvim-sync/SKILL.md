@@ -12,6 +12,7 @@ Run from `~/.config/nvim`. Reference source is the installed LazyVim checkout:
 
 - `git status --porcelain` must be empty. If not, stop and say so.
 - `OLD=$(git -C "$LV" rev-parse HEAD)`; note `git -C "$LV" describe --tags`.
+- Record the baseline LSP-attach check from step 8.
 
 ## 2. Update
 
@@ -99,12 +100,23 @@ them this session.
 ## 8. Verify each change before committing
 
 ```sh
-nvim --headless "+Lazy! load all" +qa 2>&1   # must print no errors
-stylua --check lua/
+nvim --headless "+Lazy! load all" "+lua io.stdout:write('ERR=['..vim.v.errmsg..']\n')" +qa 2>&1   # ERR must be empty
+stylua --check <changed files>   # whole-tree check may already fail on untouched files
 ```
 
-For language/LSP changes, open a sample file and confirm the expected client
-attaches:
+`Lazy! load all` does not run nvim-lspconfig's `config` against a buffer, so
+errors there (e.g. an extra's `opts` function crashing) stay hidden. Always
+also open a Lua file and confirm `lua_ls` attaches with an empty `errmsg` —
+run this as a baseline in step 1 too, so pre-existing breakage is reported as
+a finding rather than blamed on a change:
+
+```sh
+nvim --headless "+e lua/config/options.lua" +"lua vim.defer_fn(function() io.stdout:write('ERR=['..vim.v.errmsg..'] CLIENTS='..vim.inspect(vim.tbl_map(function(c) return c.name end, vim.lsp.get_clients()))..'\n') vim.cmd'qa!' end, 4000)" 2>&1 | grep -a CLIENTS
+# expect: ERR=[] CLIENTS={ "lua_ls" }
+```
+
+For other language/LSP changes, open a sample file of that language the same
+way and confirm the expected client attaches:
 
 ```sh
 nvim --headless sample.ext +"lua vim.defer_fn(function() print(vim.inspect(vim.tbl_map(function(c) return c.name end, vim.lsp.get_clients()))) vim.cmd'qa' end, 3000)"

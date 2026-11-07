@@ -1,5 +1,5 @@
 return {
-  -- Extends lazyvim.plugins.extras.lang.typescript and its biome/vue siblings
+  -- Extends lazyvim.plugins.extras.lang.typescript and its biome/tsc siblings
   {
     "nvim-treesitter/nvim-treesitter",
     opts = {

@@ -21,12 +21,7 @@ local function patch_otter_inline_chunks()
       local previous = joined[#joined]
       if chunk.leading_offset ~= 0 or #chunk.text == 0 then
         table.insert(joined, chunk)
-      elseif
-        previous
-        and previous.leading_offset == 0
-        and previous.range.to[1] == start_row
-        and #previous.text > 0
-      then
+      elseif previous and previous.leading_offset == 0 and previous.range.to[1] == start_row and #previous.text > 0 then
         local last_line = previous.text[#previous.text]
         previous.text[#previous.text] = last_line
           .. string.rep(" ", math.max(start_col - #last_line, 0))

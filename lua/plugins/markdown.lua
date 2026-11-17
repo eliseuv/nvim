@@ -39,8 +39,8 @@ local function patch_otter_inline_chunks()
 end
 
 return {
-  -- Disable in favor of peek.nvim (browser-based preview, needs yarn/node;
-  -- peek.nvim uses deno and renders in-window instead).
+  -- Disable in favor of peek.nvim (markdown-preview needs yarn/node; peek.nvim
+  -- only needs deno).
   { "iamcco/markdown-preview.nvim", enabled = false },
 
   -- Preview
@@ -63,7 +63,9 @@ return {
         desc = "Markdown Preview",
       },
     },
-    opts = {},
+    -- The default "webview" app is a prebuilt .so linked against FHS paths
+    -- (webkit2gtk, gtk3, glib), so on NixOS it exits with code 1 silently.
+    opts = { app = "browser" },
   },
 
   -- Format with `deno fmt` instead of prettier: prettier only treats `$x$`
